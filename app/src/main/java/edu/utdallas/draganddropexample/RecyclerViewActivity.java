@@ -1,20 +1,15 @@
 package edu.utdallas.draganddropexample;
 
-import android.annotation.TargetApi;
 import android.app.Activity;
-import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
-import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -36,15 +31,7 @@ public class RecyclerViewActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.recycler);
-        rvhome = (RecyclerView) findViewById(R.id.rcHome);
-        rvhome.setHasFixedSize(false);
-        GridLayoutManager mLayoutManager;
-        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
-            mLayoutManager = new GridLayoutManager(this, 5);
-        } else
-            mLayoutManager = new GridLayoutManager(this, 3);
-
-        rvhome.setLayoutManager(mLayoutManager);
+        rvhome = (RecyclerView) findViewById(R.id.rvHome);
 
         Resources res = getResources();
         items = Arrays.asList(new ItemModel(res.getDrawable(R.drawable.a), 0),
@@ -77,13 +64,58 @@ public class RecyclerViewActivity extends Activity {
                 new ItemModel(res.getDrawable(R.drawable.a4), 27),
                 new ItemModel(res.getDrawable(R.drawable.a5), 28),
                 new ItemModel(res.getDrawable(R.drawable.a6), 29));
-        adapter = new RecyclerAdapter(items);
-        itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
+
+
+        //RecyclerViewDragManager dragDropManager = new RecyclerViewDragManager();
+        rvhome.setHasFixedSize(false);
+        GridLayoutManager mLayoutManager;
+        if (getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE) {
+            mLayoutManager = new GridLayoutManager(this, 5);
+        } else
+            mLayoutManager = new GridLayoutManager(this, 3);
+
+        rvhome.setLayoutManager(mLayoutManager);
+
+        RecyclerAdapter adapter = new RecyclerAdapter(items);
+        // RecyclerView.Adapter wrappedAdapter = dragDropManager.createWrappedAdapter(adapter);
+        rvhome.setAdapter(adapter);
+        // disable change animations
+        ((SimpleItemAnimator) rvhome.getItemAnimator()).setSupportsChangeAnimations(false);
+
+        // [OPTIONAL]
+        // dragDropManager.setInitiateOnTouch(true);
+        // dragDropManager.setInitiateOnLongPress(true);
+        // dragDropManager.setInitiateOnMove(true);
+
+        // dragDropManager.attachRecyclerView(rvhome);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  /*      adapter = new RecyclerAdapter(items);
+/*        itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
         itemTouchHelper.attachToRecyclerView(rvhome);
-        rvhome.setAdapter(new RecyclerAdapter(items));
+        rvhome.setAdapter(new RecyclerAdapter(items));*/
     }
 
 
+/*
 
     ItemTouchHelper.Callback itemTouchHelperCallback = new ItemTouchHelper.Callback() {
         @TargetApi(Build.VERSION_CODES.M)
@@ -93,8 +125,7 @@ public class RecyclerViewActivity extends Activity {
             Log.i(TAG, "OnMove : viewHolder:" + viewHolder.getAdapterPosition() + "; target: " + target.getAdapterPosition());
             viewHolder.itemView.setMinimumHeight(130);
             viewHolder.itemView.setMinimumWidth(130);
-            Collections.swap(items, viewHolder.getAdapterPosition(), target.getAdapterPosition());
-            adapter.notifyItemMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition());
+
             viewHolder.itemView.setElevation(30);
             return true;
         }
@@ -102,6 +133,8 @@ public class RecyclerViewActivity extends Activity {
         @Override
         public void onMoved(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder, int fromPos, RecyclerView.ViewHolder target, int toPos, int x, int y) {
             super.onMoved(recyclerView, viewHolder, fromPos, target, toPos, x, y);
+            Collections.swap(items, viewHolder.getAdapterPosition(), target.getAdapterPosition());
+            adapter.notifyItemMoved(viewHolder.getAdapterPosition(), target.getAdapterPosition());
             Log.i(TAG, "OnMoved : viewHolder:" + viewHolder.getAdapterPosition() + "; target: " + target.getAdapterPosition() + "; toPos: " + toPos + " ; x = " + x + "; y = " + y);
         }
 
@@ -136,6 +169,7 @@ public class RecyclerViewActivity extends Activity {
             return super.getAnimationDuration(recyclerView, animationType, animateDx, animateDy);
         }
 
+*/
 /*        @Override
         public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
             super.onSelectedChanged(viewHolder, actionState);
@@ -146,8 +180,10 @@ public class RecyclerViewActivity extends Activity {
             SharedPreferences sharedPrefs = PreferenceManager.getDefaultSharedPreferences(RecyclerViewActivity.this);
             SharedPreferences.Editor editor = sharedPrefs.edit();
             super.clearView(recyclerView, viewHolder);
-        }*/
+        }*//*
+
     };
+*/
 
 
 
