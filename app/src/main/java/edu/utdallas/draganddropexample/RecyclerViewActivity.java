@@ -1,15 +1,19 @@
 package edu.utdallas.draganddropexample;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SimpleItemAnimator;
 import android.support.v7.widget.helper.ItemTouchHelper;
+import android.util.Log;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -76,20 +80,11 @@ public class RecyclerViewActivity extends Activity {
 
         rvhome.setLayoutManager(mLayoutManager);
 
-        RecyclerAdapter adapter = new RecyclerAdapter(items);
-        // RecyclerView.Adapter wrappedAdapter = dragDropManager.createWrappedAdapter(adapter);
+        adapter = new RecyclerAdapter(items);
         rvhome.setAdapter(adapter);
-        // disable change animations
         ((SimpleItemAnimator) rvhome.getItemAnimator()).setSupportsChangeAnimations(false);
-
-        // [OPTIONAL]
-        // dragDropManager.setInitiateOnTouch(true);
-        // dragDropManager.setInitiateOnLongPress(true);
-        // dragDropManager.setInitiateOnMove(true);
-
-        // dragDropManager.attachRecyclerView(rvhome);
-
-
+        itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
+        itemTouchHelper.attachToRecyclerView(rvhome);
 
 
 
@@ -114,8 +109,6 @@ public class RecyclerViewActivity extends Activity {
         rvhome.setAdapter(new RecyclerAdapter(items));*/
     }
 
-
-/*
 
     ItemTouchHelper.Callback itemTouchHelperCallback = new ItemTouchHelper.Callback() {
         @TargetApi(Build.VERSION_CODES.M)
@@ -168,8 +161,10 @@ public class RecyclerViewActivity extends Activity {
             Log.i(TAG, "getAnimationDuration; animationType" + animationType + "; animateDx = " + animateDx + "; animateDy = " + animateDy);
             return super.getAnimationDuration(recyclerView, animationType, animateDx, animateDy);
         }
+    };
+}
 
-*/
+
 /*        @Override
         public void onSelectedChanged(RecyclerView.ViewHolder viewHolder, int actionState) {
             super.onSelectedChanged(viewHolder, actionState);
@@ -187,4 +182,4 @@ public class RecyclerViewActivity extends Activity {
 
 
 
-}
+

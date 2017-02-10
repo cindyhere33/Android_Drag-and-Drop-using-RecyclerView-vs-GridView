@@ -32,6 +32,8 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>
     public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         final LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         final View v = inflater.inflate(R.layout.griditem, parent, false);
+        v.setMinimumWidth(100);
+        v.setMinimumHeight(100);
         return new MyViewHolder(v);
     }
 
@@ -40,20 +42,6 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>
         // set text
         holder.iv.setImageDrawable(items.get(position).getDrawable());
         final int dragState = holder.getDragStateFlags();
-        /*if (((dragState & Draggable.STATE_FLAG_IS_UPDATED) != 0)) {
-            int bgResId;
-
-            if ((dragState & Draggable.STATE_FLAG_IS_ACTIVE) != 0) {
-                bgResId = R.drawable.bg_item_dragging_active_state;
-                DrawableUtils.clearState(holder.frame.getForeground());
-            } else if ((dragState & Draggable.STATE_FLAG_DRAGGING) != 0) {
-                bgResId = R.drawable.bg_item_dragging_state;
-            } else {
-                bgResId = R.drawable.bg_item_normal_state;
-            }
-
-            holder.frame.setBackgroundResource(bgResId);
-        }*/
     }
 
     @Override
@@ -69,8 +57,6 @@ class RecyclerAdapter extends RecyclerView.Adapter<RecyclerAdapter.MyViewHolder>
         public MyViewHolder(View v) {
             super(v);
             iv = (ImageView) v.findViewById(R.id.iv);
-            frame = (FrameLayout) v.findViewById(R.id.frame);
-            dragHandle = v.findViewById(R.id.drag_handle);
         }
     }
 
