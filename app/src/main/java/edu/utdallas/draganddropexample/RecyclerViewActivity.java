@@ -85,28 +85,6 @@ public class RecyclerViewActivity extends Activity {
         ((SimpleItemAnimator) rvhome.getItemAnimator()).setSupportsChangeAnimations(false);
         itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
         itemTouchHelper.attachToRecyclerView(rvhome);
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  /*      adapter = new RecyclerAdapter(items);
-/*        itemTouchHelper = new ItemTouchHelper(itemTouchHelperCallback);
-        itemTouchHelper.attachToRecyclerView(rvhome);
-        rvhome.setAdapter(new RecyclerAdapter(items));*/
     }
 
 
